@@ -130,7 +130,7 @@ export default function UploadFile() {
       </div>
 
       {/* Vertical Divider */}
-      <div className="hidden lg:block border-l border-dotted h-100 mx-8"></div>
+      {showDetails && <div className="hidden lg:block border-l border-dotted h-100 mx-8"></div>}
 
       {/* Conditionally Rendered Right-Side User Details Table */}
       {showDetails && (

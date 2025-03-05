@@ -14,19 +14,11 @@ export default function Sidebar() {
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <a
-                href="https://flowbite.com"
-                className="flex items-center space-x-2"
-              >
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8"
-                  alt="Logo"
-                />
-                <span className="text-lg font-semibold text-gray-900 ">
+              
+                <span className="text-lg ml-4 font-semibold text-gray-900 ">
                   DocProcess
                 </span>
-              </a>
+              
             </div>
             <div className="flex items-center space-x-3">
               <button
@@ -66,9 +58,51 @@ export default function Sidebar() {
                     selectedItem === "upload" ? "text-white" : "text-gray-500"
                   }`}
                 />
-                <span className="text-sm">Upload</span>
+               <span className={`text-sm ${
+                    selectedItem === "upload" ? "text-white" : "text-gray-500"
+                  }`}>Upload</span>
               </a>
             </li>
+            {/* <li>
+              <a
+                href="#"
+                onClick={() => handleSelectItem("upload2")}
+                className={`flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out ${
+                  selectedItem === "upload2"
+                    ? "bg-[#6366f1] text-white"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                }`}
+              >
+                <FaUpload
+                  className={`w-3 h-3 mr-3 ${
+                    selectedItem === "upload2" ? "text-white" : "text-gray-500"
+                  }`}
+                />
+                <span className={`text-sm ${
+                    selectedItem === "upload2" ? "text-white" : "text-gray-500"
+                  }`}>Upload2</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onClick={() => handleSelectItem("upload3")}
+                className={`flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out ${
+                  selectedItem === "upload3"
+                    ? "bg-[#6366f1] text-white"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                }`}
+              >
+                <FaUpload
+                  className={`w-3 h-3 mr-3 ${
+                    selectedItem === "upload3" ? "text-white" : "text-gray-500"
+                  }`}
+                />
+                <span className={`text-sm ${
+                    selectedItem === "upload3" ? "text-white" : "text-gray-500"
+                  }`}>Upload3</span>
+              </a>
+            </li> */}
           </ul>
         </div>
       </aside>
