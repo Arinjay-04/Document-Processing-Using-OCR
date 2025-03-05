@@ -92,6 +92,7 @@ Ensure you have the following installed:
 - **Prasad Gujjar**
 - **Avadhut Bhong**
 - **Areen Deshpande**
+- **Rushikesh Gaikwad**
 
 ### License
 This project is licensed under the MIT License.
