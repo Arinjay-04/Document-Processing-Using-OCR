@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaUpload } from "react-icons/fa"; // You can replace this with a more modern icon from react-icons
+import { FaUpload, FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   const [selectedItem, setSelectedItem] = useState("upload");
@@ -10,99 +11,53 @@ export default function Sidebar() {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-white shadow-md">
-        <div className="px-4 py-3">
+      {/* Top Navigation Bar */}
+      <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+        <div className="px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              
-                <span className="text-lg ml-4 font-semibold text-gray-900 ">
-                  DocProcess
-                </span>
-              
+              <span className="text-xl font-bold text-[#3b82f6]">
+                DocProcess
+              </span>
             </div>
-            <div className="flex items-center space-x-3">
+            {/* <div className="flex items-center">
               <button
                 type="button"
-                className="text-gray-800 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-colors duration-200"
               >
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  alt="User photo"
-                />
-              </button>
-            </div>
+                {/* <FaUserCircle className="w-6 h-6" /> */}
+            {/* </button>
+            </div> */}
           </div>
         </div>
       </nav>
 
+      {/* Sidebar */}
       <aside
-        id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-white shadow-lg transition-transform sm:translate-x-0"
+        className="fixed top-0 left-0 z-40 w-64 h-screen pt-16 bg-white shadow-lg transition-transform"
         aria-label="Sidebar"
       >
-        <div className="h-full px-4 pb-4 overflow-y-auto">
-          <ul className="space-y-3 font-medium">
+        <div className="h-full px-4 py-6 overflow-y-auto">
+          <ul className="space-y-4">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/upload"
                 onClick={() => handleSelectItem("upload")}
-                className={`flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out ${
+                className={`flex items-center px-4 py-3 rounded-lg transition duration-200 ${
                   selectedItem === "upload"
-                    ? "bg-[#6366f1] text-white"
-                    : "text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    ? "bg-[#3b82f6] text-white"
+                    : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
                 <FaUpload
-                  className={`w-3 h-3 mr-3 ${
+                  className={`w-5 h-5 ${
                     selectedItem === "upload" ? "text-white" : "text-gray-500"
                   }`}
                 />
-               <span className={`text-sm ${
-                    selectedItem === "upload" ? "text-white" : "text-gray-500"
-                  }`}>Upload</span>
-              </a>
+                <span className="ml-3 font-medium">Upload Document</span>
+              </Link>
             </li>
-            {/* <li>
-              <a
-                href="#"
-                onClick={() => handleSelectItem("upload2")}
-                className={`flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out ${
-                  selectedItem === "upload2"
-                    ? "bg-[#6366f1] text-white"
-                    : "text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                }`}
-              >
-                <FaUpload
-                  className={`w-3 h-3 mr-3 ${
-                    selectedItem === "upload2" ? "text-white" : "text-gray-500"
-                  }`}
-                />
-                <span className={`text-sm ${
-                    selectedItem === "upload2" ? "text-white" : "text-gray-500"
-                  }`}>Upload2</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={() => handleSelectItem("upload3")}
-                className={`flex items-center py-2 px-3 rounded-lg transition duration-300 ease-in-out ${
-                  selectedItem === "upload3"
-                    ? "bg-[#6366f1] text-white"
-                    : "text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                }`}
-              >
-                <FaUpload
-                  className={`w-3 h-3 mr-3 ${
-                    selectedItem === "upload3" ? "text-white" : "text-gray-500"
-                  }`}
-                />
-                <span className={`text-sm ${
-                    selectedItem === "upload3" ? "text-white" : "text-gray-500"
-                  }`}>Upload3</span>
-              </a>
-            </li> */}
+            {/* Add more menu items here if needed */}
           </ul>
         </div>
       </aside>
