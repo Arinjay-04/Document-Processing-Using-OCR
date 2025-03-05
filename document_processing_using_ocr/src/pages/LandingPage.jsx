@@ -242,25 +242,33 @@ const LandingPage = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-    setUser(currentUser);
-
-    // Add click outside listener
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
+    // Check auth status on mount and after any storage changes
+    const checkAuth = () => {
+      const currentUser = authService.getCurrentUser();
+      setUser(currentUser);
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    checkAuth();
+
+    // Listen for storage changes (in case of logout in another tab)
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
   }, []);
 
-  const handleLogout = () => {
-    authService.logout();
-    setUser(null);
-    setShowDropdown(false);
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      setShowDropdown(false);
+      authService.logout();
+      setUser(null);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Force logout even if there's an error
+      setUser(null);
+      localStorage.clear();
+      sessionStorage.clear();
+      navigate("/", { replace: true });
+    }
   };
 
   const getInitials = (name) => {
@@ -289,7 +297,8 @@ const LandingPage = () => {
   };
 
   return (
-    <Container>+
+    <Container>
+      +
       <Navbar>
         <Logo>DocProcess</Logo>
         <NavLinks>
@@ -330,7 +339,6 @@ const LandingPage = () => {
           )}
         </NavLinks>
       </Navbar>
-
       <HeroSection>
         <HeroContent>
           <Title>Transform Your Documents Into Actionable Data</Title>
@@ -349,7 +357,6 @@ const LandingPage = () => {
           </motion.div>
         </HeroContent>
       </HeroSection>
-
       <UploadSection>
         <UploadContainer>
           <h2>Start Processing Your Documents</h2>
@@ -383,7 +390,6 @@ const LandingPage = () => {
           </UploadArea>
         </UploadContainer>
       </UploadSection>
-
       <Footer>
         <FooterContent>
           <FooterColumn>

@@ -45,8 +45,29 @@ export const authService = {
   },
 
   logout: () => {
+    // Clear localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
+    // Clear sessionStorage
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+
+    // Clear all localStorage
+    localStorage.clear();
+
+    // Clear all sessionStorage
+    sessionStorage.clear();
+
+    // Clear cookies
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+
+    // Force reload to clear any cached states
+    window.location.reload();
   },
 
   getCurrentUser: () => {

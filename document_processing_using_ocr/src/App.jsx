@@ -5,6 +5,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import { useEffect, useState } from "react";
 import LandingPage from "./pages/LandingPage";
 import FileUploadPage from "./pages/FileUploadPage";
 import LoginPage from "./pages/LoginPage";
@@ -15,7 +16,21 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar.jsx";
 
 function App() {
-  const isAuthenticated = () => !!authService.getCurrentUser();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check authentication status
+    const checkAuth = () => {
+      const user = authService.getCurrentUser();
+      setIsAuthenticated(!!user);
+    };
+
+    checkAuth();
+
+    // Listen for storage changes
+    window.addEventListener("storage", checkAuth);
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
 
   return (
     <>
@@ -23,25 +38,38 @@ function App() {
       <Router>
         {/* <Navbar /> */}
         <Routes>
-          <Route path="/upload" element={<FileUploadPage />} />
-          {/* </Routes> */}
-          {/* <div className="text-3xl font-semibold">Hello EDC!!</div> */}
-          {/* </Router> */}
-          {/* </> */}
-          {/* <Router> */}
-          {/* <Routes> */}
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route
             path="/login"
-            element={isAuthenticated() ? <Navigate to="/" /> : <LoginPage />}
+            element={
+              isAuthenticated ? (
+                <Navigate to="/upload" replace />
+              ) : (
+                <LoginPage />
+              )
+            }
           />
           <Route
             path="/signup"
-            element={isAuthenticated() ? <Navigate to="/" /> : <SignupPage />}
+            element={
+              isAuthenticated ? (
+                <Navigate to="/upload" replace />
+              ) : (
+                <SignupPage />
+              )
+            }
           />
 
           {/* Protected Routes */}
+          <Route
+            path="/upload"
+            element={
+              <ProtectedRoute>
+                <FileUploadPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
@@ -60,7 +88,7 @@ function App() {
           />
 
           {/* Catch all route */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
       {/* </AuthProvider> */}

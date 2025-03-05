@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 export default function UploadFile() {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [userDetails, setUserDetails] = useState(null); // State to hold user details from backend
   const [showDetails, setShowDetails] = useState(false); // State to control visibility of user details table
 
   const handleFileChange = (event) => {
@@ -18,11 +20,64 @@ export default function UploadFile() {
     setSelectedFiles(selectedFiles.filter((_, i) => i !== index));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (selectedFiles.length > 0) {
       console.log("Uploading files...", selectedFiles);
-      // Implement upload logic here
-      setShowDetails(true); // Show the right-side table after upload
+
+      // Update file status to 'Uploading' before starting the upload
+      const updatedFiles = selectedFiles.map((file) => ({
+        ...file,
+        status: "Uploading", // Set initial status to 'Uploading'
+      }));
+      setSelectedFiles(updatedFiles);
+
+      try {
+        const formData = new FormData();
+        selectedFiles.forEach((file) => {
+          formData.append("file", file); // Appending files to formData
+        });
+
+        const response = await axios.post(
+          "http://localhost:3001/extract-text",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+
+        if (response.data && Array.isArray(response.data)) {
+          // Map the response data with selected files
+          const updatedFilesWithStatus = selectedFiles.map((file, index) => {
+            const responseFile = response.data[index]; // Get the corresponding file from the response
+
+            // Map response attributes to the selected file attributes
+            return {
+              ...file,
+              status: responseFile?.status || "Uploaded", // Use 'Uploaded' as default if not present in response
+              message: responseFile?.message || "Upload complete", // Display message from the response
+            };
+          });
+
+          setSelectedFiles(updatedFilesWithStatus); // Update the state with the mapped data
+        }
+
+        // Assuming the backend response contains user details
+        setUserDetails(response.data.userDetails || null); // Extract user details if available
+
+        return response.data;
+      } catch (error) {
+        console.error("Error sending file to backend:", error);
+
+        // In case of error, update the status for failed files
+        const updatedFilesWithError = selectedFiles.map((file) => ({
+          ...file,
+          status: "Error", // Mark files as 'Error' if the upload fails
+          message: "An error occurred while uploading", // Error message
+        }));
+        setSelectedFiles(updatedFilesWithError);
+
+        return null;
+      }
     }
   };
 
@@ -130,29 +185,31 @@ export default function UploadFile() {
       </div>
 
       {/* Vertical Divider */}
-      {showDetails && <div className="hidden lg:block border-l border-dotted h-100 mx-8"></div>}
+      {showDetails && (
+        <div className="hidden lg:block border-l border-dotted h-100 mx-8"></div>
+      )}
 
       {/* Conditionally Rendered Right-Side User Details Table */}
-      {showDetails && (
+      {showDetails && userDetails && (
         <div className="w-full max-w-sm p-8 border border-gray-300 rounded-lg shadow-md bg-white">
           <h2 className="text-xl font-bold mb-4 text-center">User Details</h2>
           <table className="w-full text-left border-collapse">
             <tbody>
               <tr className="border-b border-gray-200">
                 <td className="px-4 py-2 font-semibold">Name</td>
-                <td className="px-4 py-2">John Doe</td>
+                <td className="px-4 py-2">{userDetails.name}</td>
               </tr>
               <tr className="border-b border-gray-200">
                 <td className="px-4 py-2 font-semibold">DOB</td>
-                <td className="px-4 py-2">01/01/1990</td>
+                <td className="px-4 py-2">{userDetails.dob}</td>
               </tr>
               <tr className="border-b border-gray-200">
                 <td className="px-4 py-2 font-semibold">Address</td>
-                <td className="px-4 py-2">123 Main St, NY</td>
+                <td className="px-4 py-2">{userDetails.address}</td>
               </tr>
               <tr>
                 <td className="px-4 py-2 font-semibold">Phone</td>
-                <td className="px-4 py-2">+1 234 567 890</td>
+                <td className="px-4 py-2">{userDetails.phone}</td>
               </tr>
             </tbody>
           </table>
