@@ -60,10 +60,6 @@ app.post('/extract-text', upload.single('file'), async (req, res) => {
         op = JSON.parse(op);
         console.log(op);
 
-        if (op.inv_no === "") {
-            op.inv_no = "INV-Default-0001";
-        }
-
         res.status(200).send(op);
     } catch (error) {
         console.error("Error extracting text:", error);
