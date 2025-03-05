@@ -20,7 +20,7 @@ app.get('/', (req,res)=>{
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-var prompt = "For the provided document return the following attributes in a json. Only provide the JSON and no other text. Directly start with the JSON. The attributes and their names in the JSON"
+var prompt = "For the provided document return the following attributes in a json.  BE SPECIFIC ONLY RETURN OUTPUT IN A VALID JSON FORMAT. KEY AND PAIR VALUE. NOTHING ELSE.  Only provide the JSON and no other text. Directly start with the JSON. The attributes and their names in the JSON. "
 
 var prev;
 var img_name;
@@ -33,7 +33,7 @@ app.post('/submit', async (req, res)=>{
     let img_ext = req.body.img_extension;
     let img_simple = 'images/' + image_no + img_ext;
     console.log(img_simple);
-    let img_path = '/home/arijnju/Documents/Meta Llama/Test_Automation_Pipeline/public/images2/image';
+    let img_path = '/home/arijnju/Documents/Document Processing/public/images2/image';
     img_path = img_path + image_no + img_ext;
     console.log(img_path);
 
