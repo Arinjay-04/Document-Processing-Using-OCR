@@ -1,99 +1,117 @@
-# Government ID Text & Feature Extraction
+# 📝 Government ID Text & Feature Extraction
 
-## Project Description
-This project is designed to extract text and features from images and PDFs of government-issued IDs in India. It utilizes **Llama 3.2 Vision Model** for Optical Character Recognition (OCR) and **MERN (MongoDB, Express.js, React, Node.js)** technologies for the web interface and backend processing. The extracted data can be used for identity verification, document processing, and automated form filling.
+## 🌟 Project Overview
+Welcome to the **Government ID Text & Feature Extraction** project! This system is designed to extract text and key details from images and PDFs of Indian government-issued IDs. We leverage the **Llama 3.2 Vision Model** for Optical Character Recognition (OCR) and build our web interface using the **MERN stack (MongoDB, Express.js, React, Node.js)**. 
 
-## Installation and Setup Instructions
+This project can be used for:
+✅ Identity verification  
+✅ Automated document processing  
+✅ Seamless form filling  
 
-### Prerequisites
-Ensure you have the following installed:
-- **Node.js** (for backend & frontend)
-- **MongoDB** (for database)
-- **Llama 3.2 Vision Model API Key** (for OCR)
+---
+
+## 🚀 Installation & Setup
+
+### 🔧 Prerequisites
+Ensure you have the following installed on your system:
+- **Node.js** ✨ (for backend & frontend)
+- **MongoDB** 📂 (for database)
+- **Llama 3.2 Vision Model API Key** 🔑 (for OCR)
 - **Git** (for version control)
 
-### Setup Steps
-1. **Clone the repository**
+### 📚 Setup Guide
+1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-repo-name.git
-   cd your-repo-name
+   git clone (https://github.com/Arinjay-04/Document-Processing-Using-OCR/)
+   cd Document-Processing-Using-OCR
    ```
 
-2. **Backend Setup (Node.js & Express.js)**
+2. **Backend Setup (💪 Node.js & Express.js)**
    ```bash
    cd backend
    npm install
-   cp .env.example .env  # Add your Llama 3.2 Vision Model API key and MongoDB URI in the .env file
+   cp .env.example .env  # Add your Llama 3.2 Vision Model API key & MongoDB URI
    npm start
    ```
 
-3. **Frontend Setup (React.js)**
+3. **Frontend Setup (🎨 React.js)**
    ```bash
    cd ../frontend
    npm install
    npm start
    ```
 
-4. **Database Setup (MongoDB)**
+4. **Database Setup (📂 MongoDB)**
    - Start your MongoDB instance.
-   - Ensure the connection string in the `.env` file is correctly set.
-
-## Model Modules and Functionalities
-
-### 1. **OCR Extraction Module (Llama 3.2 Vision Model)**
-   - Extracts text and key details from uploaded government ID images and PDFs.
-   - Supports Aadhaar, PAN, Voter ID, and Driving License.
-   - Returns structured data in JSON format.
-
-### 2. **Feature Extraction & Validation Module**
-   - Extracts key attributes like Name, DOB, Address, and ID Number.
-   - Validates extracted text against predefined formats and rules.
-
-### 3. **Database Storage Module (MongoDB)**
-   - Stores extracted data securely for verification and retrieval.
-   - Maintains logs of processed documents.
-
-### 4. **Frontend UI Module (React.js)**
-   - Provides an intuitive interface for users to upload IDs.
-   - Displays extracted data with options to verify and edit.
-
-## Example Usage Guidelines
-
-### Uploading an ID for Extraction
-1. Visit the web application.
-2. Upload an image or PDF of an Indian government-issued ID.
-3. Click on the "Extract Text" button.
-
-### Processing and Output
-- The system processes the file and extracts text.
-- Extracted details are displayed on the frontend.
-- Users can verify, edit, and submit the details.
-
-### API Endpoint Usage
-#### 1. **Upload Image/PDF for Extraction**
-   ```http
-   POST /api/extract
-   Content-Type: multipart/form-data
-   Body: { file: <image/pdf> }
-   ```
-#### 2. **Retrieve Extracted Data**
-   ```http
-   GET /api/data/:id
-   ```
-
-## Future Enhancements
-- Support for additional document types.
-- AI-powered verification for fraud detection.
-- Multi-language support for regional IDs.
+   - Ensure the connection string in `.env` is correctly set.
 
 ---
-### Contributors
-- **Arinjay Patil**
-- **Prasad Gujjar**
-- **Avadhut Bhong**
-- **Areen Deshpande**
-- **Rushikesh Gaikwad**
 
-### License
-This project is licensed under the MIT License.
+## 🔮 Core Modules & Functionalities
 
+### 🎯 1. OCR Extraction Module (Llama 3.2 Vision Model)
+- Extracts text & structured data from Aadhaar, PAN, Voter ID, and Driving License.
+- Returns JSON output with key details.
+
+### 🔧 2. Feature Extraction & Validation
+- Extracts **Name, DOB, Address, and ID Number**.
+- Validates extracted text against predefined formats.
+
+### 🛡️ 3. Secure Database Storage (MongoDB)
+- Stores extracted data securely.
+- Maintains logs for future reference.
+
+### 🎨 4. Frontend UI (React.js)
+- Intuitive interface to upload IDs.
+- Allows users to **verify, edit, and submit** extracted details.
+
+---
+
+## 🔍 How to Use?
+
+### Uploading an ID for Extraction
+1. Open the web application.
+2. Upload an image or PDF of a government-issued ID.
+3. Click **"Extract Text"**.
+
+### Processing & Output
+- The system processes the file & extracts text.
+- Extracted details appear on the frontend.
+- Users can **verify, edit, and submit** the details.
+
+---
+
+## 🌐 API Endpoints
+
+### 📃 Upload Image/PDF for Extraction
+```http
+POST /api/extract
+Content-Type: multipart/form-data
+Body: { file: <image/pdf> }
+```
+
+### 🔄 Retrieve Extracted Data
+```http
+GET /api/data/:id
+```
+
+---
+
+## 🌟 Future Enhancements
+🔎 AI-powered fraud detection  
+🌍 Multi-language support for regional IDs  
+📄 Support for additional document types  
+
+---
+
+## 👥 Contributors
+- **Arinjay Patil** 
+- **Prasad Gujar** 
+- **Avadhut Bhong** 
+- **Areen Deshpande** 
+- **Rushikesh Gaikwad** 
+
+---
+
+## 🔒 License
+This project is licensed under the **MIT License**. Feel free to use & contribute! 🚀
